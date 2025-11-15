@@ -1,0 +1,17 @@
+# week05
+
+## 🎯 目標
+監視ツール開発とprocfsの理解
+
+## ✅ ToDo（自動生成）
+- [ ] CPU使用率の算出方法理解
+- [ ] /proc/stat の解析
+- [ ] CでCPU使用率取得プログラム作成
+- [ ] Makefile 強化
+
+## 📚 参考資料
+- procfs docs
+- Linux Performance Book
+
+## 🔮 次週の予定
+Week06: ブログ週間（まとめ + 公開）
