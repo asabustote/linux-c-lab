@@ -1,0 +1,92 @@
+#!/bin/bash
+# ============================================
+# generate_phase_weeks.sh
+# Linux-C-Lab 各Phase/Week Markdown自動生成
+# ============================================
+
+# --- ルートディレクトリ設定 ---
+SCRIPT_DIR=$(dirname "$0")
+ROOT_DIR=$(realpath "$SCRIPT_DIR/../..") # src/utils/ から2階層上がルート
+DOCS_DIR="$ROOT_DIR/docs"
+mkdir -p "$DOCS_DIR"
+
+# --- フェーズ定義 ---
+declare -A PHASES=(
+    [1]="Phase 1: Linuxサーバ構築"
+    [2]="Phase 2: C言語・スネークゲーム"
+    [3]="Phase 3: TCP通信・パケット解析"
+    [4]="Phase 4: 電子工作"
+    [5]="Phase 5: 自作ルータ"
+    [6]="Phase 6: 自作OS / ドライバ"
+)
+
+# --- 各週の目標・土日作業・参考資料 ---
+declare -A WEEK_GOALS
+declare -A WEEK_WEEKEND
+declare -A WEEK_REF
+
+# Phase 1 (Week01-06)
+WEEK_GOALS[1]="Design Week：サーバ構成、アクセス権、ポート計画、systemd理解、ネットワーク基礎"
+WEEK_WEEKEND[1]="設計・構成図作成、必要パッケージ確認"
+WEEK_REF[1]="SSH: man sshd_config, OpenSSH公式\nLinux基礎: Linux Command Line Basics\nsystemd: systemctl, journalctl"
+
+WEEK_GOALS[2]="SSH設定例、鍵認証、ログ確認"
+WEEK_WEEKEND[2]="SSHサーバ構築、接続テスト、systemd常駐化"
+WEEK_REF[2]="SSH: man sshd_config, OpenSSH公式\nsystemd: Unit作成例"
+
+WEEK_GOALS[3]="Nginx設定例、ドキュメントルート管理"
+WEEK_WEEKEND[3]="Webサーバ構築、アクセス確認、仮想ホスト設定"
+WEEK_REF[3]="Nginx Beginner’s Guide\n/etc/nginx/sites-available 構成例"
+
+WEEK_GOALS[4]="BIND/DHCP/NTP設定例"
+WEEK_WEEKEND[4]="DNS/DHCP/NTPサーバ構築、連携テスト"
+WEEK_REF[4]="BIND9 ドキュメント\nISC DHCP 設定ガイド\nNTP.org 設定ガイド"
+
+WEEK_GOALS[5]="Postfix設定、ユーザ管理、ログ確認"
+WEEK_WEEKEND[5]="Mailサーバ構築、テストメール送受信、サービス連携確認"
+WEEK_REF[5]="Postfix Basic Configuration\nSMTPログ解析"
+
+WEEK_GOALS[6]="Blog Week：フェーズ振り返り、学習ポイント整理"
+WEEK_WEEKEND[6]="まとめ記事作成、図解・コマンド例・トラブルシュートメモ"
+WEEK_REF[6]="参考資料はこれまでのまとめ"
+
+# --- 生成ループ ---
+for week in $(seq 1 6); do
+    week_name=$(printf "week%02d" "$week")
+
+    # フェーズ決定
+    if ((week <= 6)); then
+        phase_dir="$DOCS_DIR/phase1"
+        phase_name="${PHASES[1]}"
+    fi
+
+    mkdir -p "$phase_dir"
+    file_path="$phase_dir/$week_name.md"
+
+    # Markdown生成
+    cat <<EOF >"$file_path"
+# Week$(printf "%02d" "$week"): 📌 $phase_name
+
+## 🎯 平日調べ物 / 今週の目標
+- ${WEEK_GOALS[$week]}
+
+## 📝 土日作業
+- ${WEEK_WEEKEND[$week]}
+
+## 📚 参考資料
+$(echo -e "${WEEK_REF[$week]}" | sed 's/^/- /')
+
+## 📝 学習記録 / 技術ブログ用メモ
+- 実装で工夫した点：
+- 問題点・トラブルシュート：
+- ブログに載せる内容アイデア：
+
+## ⏱️ 実績時間
+- 土曜：
+- 日曜：
+- **合計**：
+
+EOF
+
+    echo "✅ $file_path 生成完了"
+done
