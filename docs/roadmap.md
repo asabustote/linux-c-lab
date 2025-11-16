@@ -38,7 +38,7 @@
 ---
 
 ## 📌 技術スタック
-- **OS**: Ubuntu, Arch Linux  
+- **OS**: Ubuntu 
 - **言語**: C, Bash  
 - **サーバ**: SSH, Web, DNS, DHCP, NTP, Mail  
 - **IoT / 電子工作**: Raspberry Pi, GPIO, I2C, SPI  
@@ -84,7 +84,7 @@
 
 | Week | 目的 | 作業例・チェックリスト | 成果物 |
 |------|------|-----------------------|--------|
-| 1 | **Design Week** | - 仮想環境設計 (Multipass / VirtualBox)<br>- ネットワーク設計図作成<br>- サーバ構成設計（SSH/Web/DNS/DHCP/NTP/Mail）<br>- ファイアウォール構成検討 | 設計メモ、構成図 |
+| 1 | **Design Week** | - 仮想環境設計 (Multipass)<br>- ネットワーク設計図作成<br>- サーバ構成設計（SSH/Web/DNS/DHCP/NTP/Mail）<br>- ファイアウォール構成検討 | 設計メモ、構成図 |
 | 2 | SSHサーバ構築 | - OpenSSHインストール・起動確認<br>- 鍵認証設定<br>- rootログイン無効化<br>- ポート番号変更テスト | SSHサーバログ、設定ファイル |
 | 3 | Webサーバ構築 | - Apache/Nginxインストール<br>- ポート80/443確認<br>- サンプルHTML作成<br>- systemd常駐確認 | Web設定ファイル、ログ |
 | 4 | DNS/DHCP/NTP構築 | - BIND9インストール・ゾーン設定<br>- DHCP範囲設定<br>- NTP同期確認 | サーバ設定ファイル、ログ |
