@@ -11,13 +11,3 @@
 - Linux基礎: Linux Command Line Basics
 - systemd: systemctl, journalctl
 
-## 📝 学習記録 / 技術ブログ用メモ
-- 実装で工夫した点：
-- 問題点・トラブルシュート：
-- ブログに載せる内容アイデア：
-
-## ⏱️ 実績時間
-- 土曜：
-- 日曜：
-- **合計**：
-
