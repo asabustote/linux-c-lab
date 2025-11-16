@@ -1,14 +1,13 @@
-# Week02: 📌 Phase 1: Linuxサーバ構築
+# Week14: 📌 Phase 4: 電子工作
 
 ## 🎯 平日調べ物 / 今週の目標
-- SSH設定例、鍵認証、ログ確認
+- 自動水やりシステム設計
 
 ## 📝 土日作業
-- SSHサーバ構築、接続テスト、systemd常駐化
+- 制御仕様書作成
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH公式
-- systemd: Unit作成例
+- 水ポンプ制御, GPIO応用例
 
 ## 📝 学習記録 / 技術ブログ用メモ
 - 実装で工夫した点：

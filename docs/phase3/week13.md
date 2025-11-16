@@ -1,14 +1,13 @@
-# Week02: 📌 Phase 1: Linuxサーバ構築
+# Week13: 📌 Phase 3: TCP通信・パケット解析
 
 ## 🎯 平日調べ物 / 今週の目標
-- SSH設定例、鍵認証、ログ確認
+- センサー値の取得・ログ化
 
 ## 📝 土日作業
-- SSHサーバ構築、接続テスト、systemd常駐化
+- 温湿度センサー値取得確認
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH公式
-- systemd: Unit作成例
+- I2C/SPI入門資料
 
 ## 📝 学習記録 / 技術ブログ用メモ
 - 実装で工夫した点：

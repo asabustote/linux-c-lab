@@ -1,48 +1,22 @@
-# 📅 Phase1 - Week 03
+# Week03: 📌 Phase 1: Linuxサーバ構築
 
-## 🎯 目的
-Week03: Web サーバ構築 (Nginx)
+## 🎯 平日調べ物 / 今週の目標
+- Nginx設定例、ドキュメントルート管理
 
----
-
-## 📘 平日の調査内容
-- Nginxの内部構造  
-- 仮想ホストとは  
-- ドキュメントルートの構成  
-- ログ/アクセス管理の基礎
-
----
-
-## 🧪 土日の作業内容
-- Nginx Webサーバ構築  
-- サイト公開  
-- 仮想ホスト設定  
-- アクセスログ確認
-
----
+## 📝 土日作業
+- Webサーバ構築、アクセス確認、仮想ホスト設定
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH 公式  
-- Web: Nginx Beginner’s Guide  
-- DNS/DHCP/NTP: BIND9, ISC DHCP, NTP.org  
-- Mail: Postfix Basic Configuration  
-- Linux基礎: systemctl, journalctl  
-- Firewall: iptables, ufw  
+- Nginx Beginner’s Guide
+- /etc/nginx/sites-available 構成例
 
----
-
-## ✍ 学習メモ
-- 実装で工夫した点  
-- 詰まった点  
-- 追加で学んだこと  
-
----
+## 📝 学習記録 / 技術ブログ用メモ
+- 実装で工夫した点：
+- 問題点・トラブルシュート：
+- ブログに載せる内容アイデア：
 
 ## ⏱️ 実績時間
-- 平日：  
-- 土日：  
+- 土曜：
+- 日曜：
+- **合計**：
 
----
-
-## 📌 次週予定
-- 次週のテーマに備えた下調べ

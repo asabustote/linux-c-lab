@@ -1,49 +1,23 @@
-# 📅 Phase1 - Week 01
+# Week01: 📌 Phase 1: Linuxサーバ構築
 
-## 🎯 目的
-Week01: Design Week
+## 🎯 平日調べ物 / 今週の目標
+- Design Week：サーバ構成、アクセス権、ポート計画、systemd理解、ネットワーク基礎
 
----
-
-## 📘 平日の調査内容
-- サーバ全体構成  
-- systemdとは何か  
-- ポート/サービス設計  
-- ネットワーク基礎（IP, DNS, ルーティング）  
-- 必要パッケージの比較
-
----
-
-## 🧪 土日の作業内容
-- サーバ構成図作成  
-- ポート/サービス一覧作成  
-- 必要パッケージの調査  
-- 設計ドキュメント作成
-
----
+## 📝 土日作業
+- 設計・構成図作成、必要パッケージ確認
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH 公式  
-- Web: Nginx Beginner’s Guide  
-- DNS/DHCP/NTP: BIND9, ISC DHCP, NTP.org  
-- Mail: Postfix Basic Configuration  
-- Linux基礎: systemctl, journalctl  
-- Firewall: iptables, ufw  
+- SSH: man sshd_config, OpenSSH公式
+- Linux基礎: Linux Command Line Basics
+- systemd: systemctl, journalctl
 
----
-
-## ✍ 学習メモ
-- 実装で工夫した点  
-- 詰まった点  
-- 追加で学んだこと  
-
----
+## 📝 学習記録 / 技術ブログ用メモ
+- 実装で工夫した点：
+- 問題点・トラブルシュート：
+- ブログに載せる内容アイデア：
 
 ## ⏱️ 実績時間
-- 平日：  
-- 土日：  
+- 土曜：
+- 日曜：
+- **合計**：
 
----
-
-## 📌 次週予定
-- 次週のテーマに備えた下調べ

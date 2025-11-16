@@ -1,14 +1,13 @@
-# Week02: 📌 Phase 1: Linuxサーバ構築
+# Week08: 📌 Phase 2: C言語・スネークゲーム
 
 ## 🎯 平日調べ物 / 今週の目標
-- SSH設定例、鍵認証、ログ確認
+- ncurses導入・サンプル実行
 
 ## 📝 土日作業
-- SSHサーバ構築、接続テスト、systemd常駐化
+- キー入力・画面描画サンプル作成
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH公式
-- systemd: Unit作成例
+- ncurses公式ドキュメント
 
 ## 📝 学習記録 / 技術ブログ用メモ
 - 実装で工夫した点：

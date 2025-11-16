@@ -1,48 +1,22 @@
-# 📅 Phase1 - Week 05
+# Week05: 📌 Phase 1: Linuxサーバ構築
 
-## 🎯 目的
-Week05: Mail サーバ構築 (Postfix)
+## 🎯 平日調べ物 / 今週の目標
+- Postfix設定、ユーザ管理、ログ確認
 
----
-
-## 📘 平日の調査内容
-- Postfix の役割  
-- メール配送/SMTPの流れ  
-- メールログ解析  
-- ユーザ管理
-
----
-
-## 🧪 土日の作業内容
-- Postfix メールサーバ構築  
-- テストメール送受信  
-- メールログ確認  
-- 他サービスとの連携確認
-
----
+## 📝 土日作業
+- Mailサーバ構築、テストメール送受信、サービス連携確認
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH 公式  
-- Web: Nginx Beginner’s Guide  
-- DNS/DHCP/NTP: BIND9, ISC DHCP, NTP.org  
-- Mail: Postfix Basic Configuration  
-- Linux基礎: systemctl, journalctl  
-- Firewall: iptables, ufw  
+- Postfix Basic Configuration
+- SMTPログ解析
 
----
-
-## ✍ 学習メモ
-- 実装で工夫した点  
-- 詰まった点  
-- 追加で学んだこと  
-
----
+## 📝 学習記録 / 技術ブログ用メモ
+- 実装で工夫した点：
+- 問題点・トラブルシュート：
+- ブログに載せる内容アイデア：
 
 ## ⏱️ 実績時間
-- 平日：  
-- 土日：  
+- 土曜：
+- 日曜：
+- **合計**：
 
----
-
-## 📌 次週予定
-- 次週のテーマに備えた下調べ

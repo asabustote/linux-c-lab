@@ -1,14 +1,13 @@
-# Week02: 📌 Phase 1: Linuxサーバ構築
+# Week19: 📌 Phase 5: 自作ルータ
 
 ## 🎯 平日調べ物 / 今週の目標
-- SSH設定例、鍵認証、ログ確認
+- NAT, ルーティング設定
 
 ## 📝 土日作業
-- SSHサーバ構築、接続テスト、systemd常駐化
+- Raspberry Piルータ構築
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH公式
-- systemd: Unit作成例
+- iptables, routing資料
 
 ## 📝 学習記録 / 技術ブログ用メモ
 - 実装で工夫した点：

@@ -1,14 +1,13 @@
-# Week02: 📌 Phase 1: Linuxサーバ構築
+# Week34: 📌 Phase 6: 成果整理・転職準備
 
 ## 🎯 平日調べ物 / 今週の目標
-- SSH設定例、鍵認証、ログ確認
+- 成果整理・技術記事作成
 
 ## 📝 土日作業
-- SSHサーバ構築、接続テスト、systemd常駐化
+- ポートフォリオ作成, Qiita/Zenn記事作成, 職務経歴書更新
 
 ## 📚 参考資料
-- SSH: man sshd_config, OpenSSH公式
-- systemd: Unit作成例
+- 過去Phase資料, GitHub, 技術記事例
 
 ## 📝 学習記録 / 技術ブログ用メモ
 - 実装で工夫した点：
