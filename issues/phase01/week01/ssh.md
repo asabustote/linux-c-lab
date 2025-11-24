@@ -7,5 +7,5 @@ memory:2GB
 
 ##SSH Server作成コマンド
 ```
-multipass launch --name ssh-lab --cpus 2 --memory 2G --disk 30G 24.04
+multipass launch --name ssh-server --cpus 2 --memory 2G --disk 30G 24.04
 ```

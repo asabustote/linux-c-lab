@@ -1,0 +1,51 @@
+## 起動
+```
+sudo systemctl start nginx
+```
+
+状態を確認
+```
+sudo systemctl status nginx
+```
+↓Activeがactive(runnning)になっている
+```
+● nginx.service - nginx - high performance web server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2025-11-24 13:11:21 JST; 7s ago
+       Docs: https://nginx.org/en/docs/
+    Process: 2603 ExecStart=/usr/sbin/nginx -c ${CONFFILE} (code=exited, status=0/SUCCESS)
+   Main PID: 2604 (nginx)
+      Tasks: 3 (limit: 2261)
+     Memory: 2.8M (peak: 3.1M)
+        CPU: 8ms
+     CGroup: /system.slice/nginx.service
+             ├─2604 "nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf"
+             ├─2605 "nginx: worker process"
+             └─2606 "nginx: worker process"
+```
+
+ポートが LISTEN しているか確認
+```
+sudo ss -tulnp | grep nginx
+```
+•0.0.0.0:80 が出ていれば HTTP 待ち受け中
+```
+tcp   LISTEN 0      511                0.0.0.0:80        0.0.0.0:*    users:(("nginx",pid=2606,fd=6),("nginx",pid=2605,fd=6),("nginx",pid=2604,fd=6))
+```
+
+ブラウザ or curl で確認
+```
+curl -I http://localhost
+```
+HTTP/1.1 200 OK が返ってくれば成功
+```
+HTTP/1.1 200 OK
+Server: nginx/1.28.0
+Date: Mon, 24 Nov 2025 04:16:02 GMT
+Content-Type: text/html
+Content-Length: 615
+Last-Modified: Wed, 23 Apr 2025 11:48:54 GMT
+Connection: keep-alive
+ETag: "6808d3a6-267"
+Accept-Ranges: bytes
+```

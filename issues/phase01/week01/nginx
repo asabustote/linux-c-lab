@@ -1,0 +1,221 @@
+作成コマンド
+```
+multipass launch -n nginx-web-server -c 2 -m 2G -d 20G
+```
+
+# Nginx Webサーバ スペック記録
+
+| 項目        | 内容                 | 備考                              |
+|------------|--------------------|----------------------------------|
+| OS Release | Ubuntu 24.04.3 LTS  | 環境再現に必須                   |
+| CPU(s)     | 2                  | vCPU数                            |
+| Memory     | 2 GB               | 割り当てメモリ（設定値）         |
+| Disk       | 20 GB              | 割り当てディスク容量（設定値）   |
+|------------|--------------------|----------------------------------
+
+# Nginx install
+## 前提条件
+###必要なコマンドのインストール
+```
+sudo apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring
+
+```
+1.curl
+ •HTTP/HTTPS などの通信をコマンドラインから行うツール
+2.GPG（GNU Privacy Guard）のバージョン2
+ •公開鍵暗号方式で署名・暗号化・認証を行う
+3.ca-certificates
+ •SSL/TLS 通信で必要な認証局（CA）の証明書をまとめたパッケージ
+ •HTTPS通信に必須
+4.lsb-release
+ •Linux Standard Base (LSB) の情報を取得するツール
+ •例: lsb_release -a でディストリビューション名・バージョン確認
+5.ubuntu-keyring
+ •Ubuntu公式の署名鍵をまとめたパッケージ
+ •ソフトウェアリポジトリの認証に使用
+
+
+### Nginxの公式署名鍵（公開鍵）のダウンロードとシステムの鍵ファイルに保存
+```
+curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor \
+    | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
+```
+###
+1.curl https://nginx.org/keys/nginx_signing.key
+ •Nginxの公式署名鍵（公開鍵）をダウンロードする
+ •まだAPTで使える形式ではない
+2.gpg --dearmor
+ •ASCII形式の鍵を バイナリ形式（.gpg） に変換
+ •Debian/UbuntuのAPTはバイナリ形式を参照する
+3.sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg
+ •変換した鍵をシステムの鍵リングに保存
+ •/usr/share/keyrings/ 配下に置くのが慣例
+4.>/dev/null
+ •標準出力を捨てて、端末に余計な文字を表示させない
+
+⸻
+
+### ダウンロードした鍵の中身が、正しいGPG公開鍵か確認する
+「この鍵ファイルの中にどんな GPG キーが入っているか」 を確認するコマンド
+```
+gpg --dry-run --quiet --no-keyring \
+    --import --import-options import-show \
+    /usr/share/keyrings/nginx-archi
+```
+• –dry-run
+実際には鍵をインポートせず、シミュレーションだけ行う。
+• –no-keyring
+既存の keyring を使わず、システムに影響を与えない。
+• –import –import-options import-show
+鍵ファイルを読み込み、その中に含まれるキー情報（Fingerprint、ユーザーID など）を表示する。
+
+
+出力結果で確認すべきポイント
+1.フィンガープリント←一意のIDであるため、公式が発行しているものと一致しているかわかる。
+2.uidのメールアドレス←公式が発行していることがわかる。
+
+
+出力結果例
+```
+gpg: key 7BD9BF62: "nginx signing key <signing-key@nginx.com>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+
+pub   rsa2048 2011-08-19 [SC]
+      573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+uid                      nginx signing key <signing-key@nginx.com>
+```
+
+🧾 出力の読み方（重要ポイント）
+1. pub（公開鍵の情報）
+```
+pub   rsa2048 2011-08-19 [SC]
+```
+•rsa2048:鍵の種類と強度（2048bit RSA）
+•日付:鍵が作られた日
+•[SC]:鍵の用途
+•S = 署名（Signing）
+•C = 認証（Certify）
+→ ソフトウェア署名用途なら妥当
+-----------------------------------
+2. フィンガープリント（最重要）
+```
+573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
+```
+その鍵の唯一無二の ID
+チェックすべき最重要ポイント！
+→ 配布元（公式サイト）が公開している fingerprint と一致しているか？
+正しい場合：安全
+一致しない場合：危険（偽造鍵の可能性）
+
+-------------------------------------
+3. uid（鍵の所有者）
+```
+uid   nginx signing key <signing-key@nginx.com>
+```
+•公開鍵の名前
+•メールアドレス
+→ 公式が発行している鍵であることを確認する
+
+⸻
+### nginx の公式 apt リポジトリを Ubuntu に登録（セットアップ）する
+Stable（安定版）
+```
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+Mainline（メインライン）
+```
+echo "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] \
+http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx" \
+    | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+➤ 動作
+1./etc/apt/sources.list.d/nginx.list にnginx の公式 apt リポジトリの URL を追加する
+2.そのリポジトリは/usr/share/keyrings/nginx-archive-keyring.gpgで検証する（改ざん防止）
+上記によりapt install nginx をすると Ubuntu の標準（古い）nginx ではなく、nginx.org の最新パッケージを取得する ようになる。
+
+なぜ apt リポジトリをセットアップする必要があるのか。
+① Ubuntu の “標準 nginx” は古いから（かなり重要）
+Ubuntu のリポジトリに入っている nginx は
+ディストリのリリース周期（2〜5年）に縛られている。
+
+例：Ubuntu 22.04 → nginx 1.18 / 1.20
+例：Ubuntu 24.04 → nginx 1.22 など
+
+→ 新機能なし
+→ HTTP/3 対応なし
+→ セキュリティ修正が遅い
+
+最新を使いたいなら、公式リポジトリを追加する必要がある。
+
+② NGINX 公式のビルドは “最適化 + 安定性” が高い
+nginx.org が配布している公式パッケージは：
+	•	標準よりパフォーマンスが良い
+	•	最新のセキュリティ修正が即日反映
+	•	nginx 本家が推奨するモジュール構成
+	•	メンテも本家が行う
+
+Ubuntu が提供する nginx より 信頼性と品質が高い。
+
+③ 署名されたリポジトリで安全に更新できる
+公式リポジトリには GPG 署名があり、
+```
+[signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg]
+```
+と指定することで、
+•パッケージの改ざん防止
+•MITM 攻撃対策
+•信頼できるアップデート提供元の保証
+
+が得られる。
+
+### Ubuntu の標準 nginx より、nginx.org の nginx を優先して使うように設定する
+```
+echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" \
+    | sudo tee /etc/apt/preferences.d/99nginx
+```
+内容が /etc/apt/preferences.d/99nginx に書き込まれる。
+```
+Package: *
+Pin: origin nginx.org
+Pin: release o=nginx
+Pin-Priority: 900
+```
+✔ Package: *
+全パッケージを対象にするという意味
+（実際は nginx.org から配布されたパッケージだけが対象になる）
+✔ Pin: origin nginx.org
+「このパッケージは nginx.org が提供したもの だと認識されたら」
+✔ Pin: release o=nginx
+「リポジトリの o=（Origin）が nginx なら」
+✔ Pin-Priority: 900
+この優先度を設定する。
+Pin-Priority が大きいほど apt が優先的に選択される。
+優先度:意味
+<100:通常はインストールされない
+500:標準のリポジトリの優先度
+900:他に同じパッケージがあっても、このリポジトリを優先する
+1000:ダウングレードされても強制的にインストール
+
+何が起きるのか
+Ubuntu には 標準 nginx がある
+↓
+あなたが追加した nginx.org の公式 nginx もある
+↓
+両方が apt update に出てくる
+↓
+どっちの nginx を使う？問題が発生する
+→ この pinning 設定のおかげで
+✅ apt install nginx → nginx.org の公式 nginx がインストールされる
+
+
+### To install nginx, run the following commands:
+```
+sudo apt update
+sudo apt install nginx
+```
+
+
+https://nginx.org/en/linux_packages.html#Ubuntu|

@@ -1,0 +1,160 @@
+SSHサーバ（OpenSSH Server）の作り方を ゼロから順番に、理由つきでめちゃ分かりやすくまとめるね。
+Multipass の Ubuntu でもそのまま使える。
+
+⸻
+
+🧱 結論：SSHサーバは OpenSSH Server を入れて有効化すれば完成
+
+SSHサーバの代表はほぼ OpenSSH Server 一択。
+macOS / Linux / BSD ほぼ全部これ。
+
+⸻
+
+🚀 SSHサーバ構築の流れ（最短）
+
+① パッケージをインストール
+
+Ubuntuなら以下だけ。
+
+sudo apt update
+sudo apt install -y openssh-server
+
+これで SSH サーバの本体（sshd）が入る。
+
+⸻
+
+② サービス開始 ＆ 自動起動
+
+sudo systemctl start ssh
+sudo systemctl enable ssh
+
+サービス名は ssh（内部は sshd）。
+
+⸻
+
+③ 状態確認
+
+systemctl status ssh
+
+Active: active (running) ならOK。
+
+⸻
+
+④ ファイアウォール（UFW）を許可
+
+※ Multipass では通常不要だが一応。
+
+sudo ufw allow 22/tcp
+sudo ufw enable
+
+
+⸻
+
+⑤ 接続テスト
+
+Mac → Multipass VMに接続する例：
+
+ssh ubuntu@<VMのIP>
+
+Multipassなら
+
+multipass info <name>
+
+でIPが分かる。
+
+⸻
+
+🔍 SSHサーバを使えるようにする「本質」
+
+最低限必要なのは３つだけ：
+	1.	sshd が起動している
+	2.	ポート 22 が開いている
+	3.	接続先のユーザが存在する
+
+だから、
+	•	インストール
+	•	systemctl start
+	•	（必要なら）UFW許可
+
+これだけで完成。
+
+⸻
+
+🛡️ セキュリティを強くする場合
+
+🔑 ① 公開鍵認証（超重要）
+
+パスワードログインを無効にして、鍵だけで入る。
+
+鍵作成（Mac側）
+
+ssh-keygen -t ed25519
+
+公開鍵をVMへコピー
+
+（sshd が生きていれば）
+
+ssh-copy-id ubuntu@<IP>
+
+パスワード認証を切る（VM側）
+
+sudo vim /etc/ssh/sshd_config
+
+変更：
+
+PasswordAuthentication no
+PubkeyAuthentication yes
+
+反映：
+
+sudo systemctl restart ssh
+
+
+⸻
+
+🔒 ② rootログイン禁止（デフォルトで禁止）
+
+PermitRootLogin no のままでOK。
+
+⸻
+
+🧩 OpenSSH Server は何が入る？
+
+openssh-server パッケージを入れると：
+	•	/usr/sbin/sshd（SSHサーバ本体）
+	•	/etc/ssh/sshd_config（設定ファイル）
+	•	systemd のユニットファイル
+	•	host鍵（/etc/ssh/ssh_host_*）
+
+がまとめて入る。
+
+OpenSSH は「最初からSSHサーバとして完成されたパッケージ」。
+コンパイルなどは不要。
+
+⸻
+
+🧭 いつSSHサーバが必要になるのか？
+	•	Multipass などの VM にリモート接続
+	•	サーバ管理（クラウド / VPS / Raspberry Pi）
+	•	自宅のLinuxマシンをリモート操作
+	•	Git サーバ運用（SSH経由）
+	•	セキュアな自動デプロイ（CI/CD）
+
+ほぼ Linuxサーバを使う＝SSHサーバ必須。
+
+⸻
+
+🧩 補足：OpenSSH以外の選択肢は？
+
+ほとんどの環境で不要だが、他には：
+	•	Dropbear（軽量、組み込み向け）
+	•	TinySSH（ミニマル）
+	•	LibreSSH（OpenSSH派生）
+
+→ 普通のLinuxサーバでは OpenSSH以外を選ぶ理由がほぼない。
+
+⸻
+
+	•	SSH拡張（pfwd, jump host）
+
+

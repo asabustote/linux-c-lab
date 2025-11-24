@@ -1,0 +1,49 @@
+curl と wget は どちらもネットからデータを取得するコマンド ですが、用途や挙動に違いがあります。整理すると以下の通りです。
+
+⸻
+
+🔹 基本の違い
+
+項目	curl	wget
+主な用途	HTTP/HTTPS などでデータの取得・送信・APIリクエスト	HTTP/HTTPS/FTP のファイルダウンロード
+標準出力	デフォルトで 端末に出力	デフォルトで ファイルに保存
+複数ファイル	URLを1つずつ処理	複数URLの同時ダウンロードや再帰取得が可能
+再帰取得	×（オプションでも基本不可）	○（サイト丸ごと取得できる）
+POST/PUT などの送信	○（API用途に便利）	×（基本はGETのみ）
+プログラムで使いやすさ	◎（JSON API取得やヘッダ操作が簡単）	△
+HTTPヘッダの操作	詳細に指定可能	一部だけ可能
+標準装備	多くのLinuxに標準、Windowsでも配布	Linux には多くの場合入っているが、Windowsでは追加が必要
+
+
+⸻
+
+🔹 具体的な使い方の違い
+
+curl（端末に出力）
+
+curl https://example.com/sample.jpg -o sample.jpg  # ファイルに保存する場合は -o
+curl -I https://example.com                       # ヘッダだけ確認
+curl -X POST -d '{"name":"test"}' https://api.example.com
+
+wget（基本は保存）
+
+wget https://example.com/sample.jpg               # ファイルに自動保存
+wget -r https://example.com/images/               # ディレクトリごと再帰取得
+wget -N https://example.com/file.txt              # 更新された場合のみダウンロード
+
+
+⸻
+
+🔹 選ぶ基準
+	•	API 取得やヘッダ操作、データ送信 → curl
+	•	大量のファイルやサイト丸ごとダウンロード → wget
+	•	単純に画像やファイル1つだけダウンロード → どちらでもOK
+
+⸻
+
+💡 補足：
+	•	curl は 標準出力に出すのでパイプ処理と相性が良い
+	•	wget は ローカルに自動保存するので簡単に大量ダウンロードできる
+
+⸻
+
