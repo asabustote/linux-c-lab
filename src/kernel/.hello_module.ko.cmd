@@ -1,0 +1,1 @@
+savedcmd_/home/ubuntu/linux-c-lab/src/kernel/hello_module.ko := ld -r -EL  -maarch64elf -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/ubuntu/linux-c-lab/src/kernel/hello_module.ko /home/ubuntu/linux-c-lab/src/kernel/hello_module.o /home/ubuntu/linux-c-lab/src/kernel/hello_module.mod.o

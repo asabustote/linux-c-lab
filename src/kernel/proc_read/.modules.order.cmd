@@ -1,0 +1,1 @@
+savedcmd_/home/ubuntu/linux-c-lab/src/kernel/proc_read/modules.order := {   echo /home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.o; :; } > /home/ubuntu/linux-c-lab/src/kernel/proc_read/modules.order

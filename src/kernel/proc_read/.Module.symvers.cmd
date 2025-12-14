@@ -1,0 +1,1 @@
+savedcmd_/home/ubuntu/linux-c-lab/src/kernel/proc_read/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/ubuntu/linux-c-lab/src/kernel/proc_read/Module.symvers -T /home/ubuntu/linux-c-lab/src/kernel/proc_read/modules.order -i Module.symvers -e 

@@ -1,0 +1,1 @@
+savedcmd_/home/ubuntu/linux-c-lab/src/kernel/hello_module.mod := printf '%s\n'   hello_module.o | awk '!x[$$0]++ { print("/home/ubuntu/linux-c-lab/src/kernel/"$$0) }' > /home/ubuntu/linux-c-lab/src/kernel/hello_module.mod

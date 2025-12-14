@@ -1,0 +1,1 @@
+savedcmd_/home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.mod := printf '%s\n'   proc_myinfo.o | awk '!x[$$0]++ { print("/home/ubuntu/linux-c-lab/src/kernel/proc_read/"$$0) }' > /home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.mod

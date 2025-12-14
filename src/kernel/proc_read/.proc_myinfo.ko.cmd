@@ -1,0 +1,1 @@
+savedcmd_/home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.ko := ld -r -EL  -maarch64elf -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.ko /home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.o /home/ubuntu/linux-c-lab/src/kernel/proc_read/proc_myinfo.mod.o
